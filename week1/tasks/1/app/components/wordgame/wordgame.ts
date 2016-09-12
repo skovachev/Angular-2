@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { DataSource } from './DataSource'
+import { LogDecorator } from './LogDecorator'
 
 @Component({
 	moduleId: module.id,
@@ -38,6 +39,7 @@ export class WordGame {
 		this.difficultySelected = false;
 	}
 
+	@LogDecorator
 	selectDifficulty(diff) {
 		var modifier = 5,
 			timer = 60;
@@ -61,12 +63,14 @@ export class WordGame {
 		this.startNewGame();
 	}
 
+	@LogDecorator
 	startNewGame() {
 		this.wordsCorrect = [];
 		this.wordsFailed = [];
 		this.nextWord();
 	}
 
+	@LogDecorator
 	nextWord() {
 		clearInterval(this.countdownTimer);
 
@@ -107,6 +111,7 @@ export class WordGame {
 		}.bind(this), 1000);
 	}
 
+	@LogDecorator
 	presentSummary() {
 		this.showSummary = true;
 	}
@@ -169,6 +174,7 @@ export class WordGame {
 		}
 	}
 
+	@LogDecorator
 	gameCompleted(won) {
 		this.gameOver = true;
 		if (won) {
@@ -184,6 +190,7 @@ export class WordGame {
 	    return text.substr(0, index) + character + text.substr(index+character.length);
 	}
 
+	@LogDecorator
 	guessWithChar(char:string) {
 		if (this.gameOver) {
 			return;

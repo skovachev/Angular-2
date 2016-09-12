@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var DataSource_1 = require('./DataSource');
+var LogDecorator_1 = require('./LogDecorator');
 var WordGame = (function () {
     function WordGame() {
         this.dataSource = new DataSource_1.DataSource();
@@ -173,6 +174,42 @@ var WordGame = (function () {
         var letterIsGuessed = this.guessedLetters.indexOf(letter) !== -1;
         return !letterIsInWord && letterIsGuessed;
     };
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], WordGame.prototype, "selectDifficulty", null);
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', []), 
+        __metadata('design:returntype', void 0)
+    ], WordGame.prototype, "startNewGame", null);
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', []), 
+        __metadata('design:returntype', void 0)
+    ], WordGame.prototype, "nextWord", null);
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', []), 
+        __metadata('design:returntype', void 0)
+    ], WordGame.prototype, "presentSummary", null);
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], WordGame.prototype, "gameCompleted", null);
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [String]), 
+        __metadata('design:returntype', void 0)
+    ], WordGame.prototype, "guessWithChar", null);
     WordGame = __decorate([
         core_1.Component({
             moduleId: module.id,

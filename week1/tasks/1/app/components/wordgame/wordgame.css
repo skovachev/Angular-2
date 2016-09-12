@@ -3,25 +3,35 @@ a {
 	margin-right: 10px;
 	text-decoration: none;
 	text-transform: uppercase;
+	padding: 3px 7px;
+	background: #eee;
 }
 
 .word {
 	text-transform: uppercase;
 }
 
+.small-word {
+	// font-size: 0.8em;
+	display: inline-block;
+	margin-right: 10px;
+}
+
 a.correct {
 	color: green;
 	font-weight: bold;
+	background: white;
 }
 
 a.incorrect {
 	color: red;
 	text-decoration: line-through;
+	background: white;
 }
 
 div {
 	padding: 10px;
-	font-size: 3em;
+	// font-size: 2em;
 }
 
 .label {
@@ -29,4 +39,8 @@ div {
 	display: inline-block;
 	color: grey;
 	margin-right: 10px;
+}
+
+div.block {
+	padding: 0;
 }

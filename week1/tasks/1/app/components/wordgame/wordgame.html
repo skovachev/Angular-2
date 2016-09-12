@@ -1,0 +1,18 @@
+<div>
+	<span class="label">Display:</span> 
+	<span class="word">{{ displayedWord }}</span>
+</div>
+
+<div>
+	<span class="label">Word Bank:</span>
+	<a 
+		href='javascript:void(0)' 
+		(click)="guessWithChar(letter)" 
+		*ngFor="let letter of displayedLetters"
+		[ngClass]="{correct: letterGuessedCorrect(letter), incorrect: letterGuessedIncorrect(letter)}"
+	>
+	  {{ letter }}
+	</a>
+</div>
+
+<button *ngIf="gameOver" (click)="startNewGame()">Next Word</button>

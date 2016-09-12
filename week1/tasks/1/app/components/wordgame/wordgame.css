@@ -1,0 +1,32 @@
+a { 
+	display:inline-block; 
+	margin-right: 10px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.word {
+	text-transform: uppercase;
+}
+
+a.correct {
+	color: green;
+	font-weight: bold;
+}
+
+a.incorrect {
+	color: red;
+	text-decoration: line-through;
+}
+
+div {
+	padding: 10px;
+	font-size: 3em;
+}
+
+.label {
+	font-weight: bold;
+	display: inline-block;
+	color: grey;
+	margin-right: 10px;
+}

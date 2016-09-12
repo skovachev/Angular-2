@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { App } from './components/app.component/app.component';
+import { WordGame } from './components/wordgame/wordgame';
 
 @NgModule({
     imports: [ BrowserModule ],
-    declarations: [ App ],
-    bootstrap: [ App ]
-}) export class AppModule {
-
+    declarations: [ WordGame ],
+    bootstrap: [ WordGame ]
+}) 
+export class AppModule {
+	
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Output, EventEmitter, Input } from '@angular/core'
 
 @Component({
 	moduleId: module.id,
@@ -7,7 +7,22 @@ import { Component } from '@angular/core'
 	styleUrls: ['letter.component.css']
 })
 export class Letter {
+	className: string;
+
+	@Input()
+	letter: string;
+
+	@Output() 
+	letterClicked = new EventEmitter<Letter>();
+	
 	constructor() {
-		
+	}
+
+	setClass(className:string) {
+		this.className = className;
+	}
+
+	onButtonClicked() {
+		this.letterClicked.emit(this);
 	}
 }

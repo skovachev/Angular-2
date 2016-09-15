@@ -15,15 +15,11 @@ var word_view_component_1 = require('./word-view/word-view.component');
 var letter_bank_component_1 = require('./letter-bank/letter-bank.component');
 var App = (function () {
     function App() {
+        this.numberHiddenLetters = 3;
         this.dataSource = new DataSource_1.DataSource();
         this.guessesDifficultyModifier = 5;
         this.difficultySelected = false;
-        console.log(this.wordView);
-        console.log(this.letterBank);
     }
-    App.prototype.ngAfterViewInit = function () {
-        console.log(this.wordView);
-    };
     App.prototype.selectDifficulty = function (diff) {
         var modifier = 5, timer = 60;
         switch (diff) {
@@ -57,12 +53,8 @@ var App = (function () {
         this.currentTime = 0;
         this.correctGuesses = 0;
         this.incorrectGuesses = 0;
-        var totalLetters = 8;
-        var numberHiddenLetters = 3;
-        var numberGuessableLetters = totalLetters - numberHiddenLetters;
-        this.allowedGuesses = numberHiddenLetters + this.guessesDifficultyModifier;
+        this.allowedGuesses = this.numberHiddenLetters + this.guessesDifficultyModifier;
         this.word = this.dataSource.getRandomWord();
-        console.log(this.word);
         if (!this.word) {
             this.presentSummary();
         }
@@ -111,6 +103,9 @@ var App = (function () {
             this.gameCompleted(false);
         }
     };
+    App.prototype.onNewWordGenerated = function () {
+        this.letterBank.hiddenLetters = this.wordView.hiddenLetters;
+    };
     __decorate([
         core_1.ViewChild(word_view_component_1.WordView), 
         __metadata('design:type', word_view_component_1.WordView)
@@ -149,6 +144,18 @@ var App = (function () {
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], App.prototype, "gameCompleted", null);
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], App.prototype, "onUserGuess", null);
+    __decorate([
+        LogDecorator_1.LogDecorator, 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', []), 
+        __metadata('design:returntype', void 0)
+    ], App.prototype, "onNewWordGenerated", null);
     App = __decorate([
         core_1.Component({
             moduleId: module.id,

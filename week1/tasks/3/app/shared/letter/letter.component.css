@@ -1,4 +1,4 @@
-letter { 
+a { 
 	display:inline-block; 
 	margin-right: 10px;
 	text-decoration: none;
@@ -7,14 +7,18 @@ letter {
 	background: #eee;
 }
 
-letter.correct {
+a.correct {
 	color: green;
 	font-weight: bold;
 	background: white;
 }
 
-letter.incorrect {
+a.incorrect {
 	color: red;
 	text-decoration: line-through;
 	background: white;
+}
+
+a.hidden {
+	content: '_';
 }

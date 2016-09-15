@@ -11,7 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Letter = (function () {
     function Letter() {
+        this.letterClicked = new core_1.EventEmitter();
     }
+    Letter.prototype.setClass = function (className) {
+        this.className = className;
+    };
+    Letter.prototype.onButtonClicked = function () {
+        this.letterClicked.emit(this);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], Letter.prototype, "letter", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], Letter.prototype, "letterClicked", void 0);
     Letter = __decorate([
         core_1.Component({
             moduleId: module.id,

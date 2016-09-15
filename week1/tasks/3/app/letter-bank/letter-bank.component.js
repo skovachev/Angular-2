@@ -11,18 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var DataSource_1 = require('../shared/DataSource');
 var LogDecorator_1 = require('../shared/LogDecorator');
+var letter_component_1 = require('../shared/letter/letter.component');
 var LetterBank = (function () {
     function LetterBank() {
         this.totalLetters = 8;
         this.numberHiddenLetters = 3;
         this.guessEmitter = new core_1.EventEmitter();
+        this.displayedLetters = [];
         this.numberGuessableLetters = this.totalLetters - this.numberHiddenLetters;
     }
-    LetterBank.prototype.onWordChanged = function () {
-        this.hiddenLetters = [];
-        this.guessedLetters = [];
-        this.addAdditionalCharsToGuess(this.numberGuessableLetters);
-        this.displayedLetters = this.hiddenLetters.slice();
+    LetterBank.prototype.ngOnChanges = function (data) {
+        if (data.word && this.word) {
+            this.hiddenLetters = [];
+            this.guessedLetters = [];
+        }
+        if (data.hiddenLetters && data.hiddenLetters.currentValue) {
+            this.hiddenLetters = data.hiddenLetters.currentValue;
+            this.guessedLetters = [];
+            this.displayedLetters = this.hiddenLetters.slice();
+            this.addAdditionalCharsToGuess(this.numberGuessableLetters);
+            this.lettersList.forEach(function (item) { return item.setClass(''); });
+        }
     };
     LetterBank.prototype.letterGuessedCorrect = function (letter) {
         var letterIsInWord = this.letterInWord(letter);
@@ -40,13 +49,13 @@ var LetterBank = (function () {
     LetterBank.prototype.addAdditionalCharsToGuess = function (count) {
         while (count > 0) {
             var char = this.dataSource.getRandomAlphabetChar();
-            if (this.hiddenLetters.indexOf(char) !== -1) {
+            if (this.hiddenLetters.indexOf(char) !== -1 || !char) {
                 continue;
             }
-            this.hiddenLetters.push(char);
+            this.displayedLetters.push(char);
             count--;
         }
-        this.hiddenLetters = this.shuffleArray(this.hiddenLetters);
+        this.displayedLetters = this.shuffleArray(this.displayedLetters);
     };
     LetterBank.prototype.shuffleArray = function (a) {
         var j, x, i;
@@ -58,10 +67,14 @@ var LetterBank = (function () {
         }
         return a;
     };
-    LetterBank.prototype.guessWithChar = function (char) {
+    LetterBank.prototype.guessWithLetter = function (letter) {
         if (this.gameOver) {
             return;
         }
+        var correct = this.guessWithChar(letter.letter);
+        letter.setClass(correct ? 'correct' : 'incorrect');
+    };
+    LetterBank.prototype.guessWithChar = function (char) {
         this.guessedLetters.push(char);
         var foundIndex = this.hiddenLetters.indexOf(char);
         if (foundIndex !== -1) {
@@ -72,6 +85,7 @@ var LetterBank = (function () {
                 hiddenLettersCount: this.hiddenLetters.length,
             });
             this.hiddenLetters.splice(foundIndex, 1);
+            return true;
         }
         else {
             // incorrect
@@ -81,6 +95,7 @@ var LetterBank = (function () {
                 guessedLetters: this.guessedLetters,
                 hiddenLettersCount: this.hiddenLetters.length,
             });
+            return false;
         }
     };
     __decorate([
@@ -91,6 +106,18 @@ var LetterBank = (function () {
         core_1.Input(), 
         __metadata('design:type', DataSource_1.DataSource)
     ], LetterBank.prototype, "dataSource", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], LetterBank.prototype, "hiddenLetters", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], LetterBank.prototype, "gameOver", void 0);
+    __decorate([
+        core_1.ViewChildren(letter_component_1.Letter), 
+        __metadata('design:type', core_1.QueryList)
+    ], LetterBank.prototype, "lettersList", void 0);
     __decorate([
         core_1.Output('user-guessed'), 
         __metadata('design:type', Object)

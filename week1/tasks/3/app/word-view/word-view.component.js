@@ -11,11 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var WordView = (function () {
     function WordView() {
-        this.word = 'Test';
+        this.newWordGenerated = new core_1.EventEmitter();
     }
-    WordView.prototype.onWordChange = function () {
-        this.displayedWord = this.word;
-        this.hiddenLetters = this.partiallyHideWord(this.numberHiddenLetters);
+    WordView.prototype.ngOnChanges = function (data) {
+        if (data.word && this.word) {
+            this.displayedWord = this.word;
+            this.hiddenLetters = this.partiallyHideWord(this.numberHiddenLetters);
+            this.newWordGenerated.emit();
+        }
     };
     WordView.prototype.partiallyHideWord = function (maxNumberOfHiddenLetters) {
         var hiddenLetters = [];
@@ -65,8 +68,16 @@ var WordView = (function () {
     ], WordView.prototype, "word", void 0);
     __decorate([
         core_1.Input(), 
+        __metadata('design:type', Array)
+    ], WordView.prototype, "hiddenLetters", void 0);
+    __decorate([
+        core_1.Input(), 
         __metadata('design:type', Number)
     ], WordView.prototype, "numberHiddenLetters", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], WordView.prototype, "newWordGenerated", void 0);
     WordView = __decorate([
         core_1.Component({
             moduleId: module.id,

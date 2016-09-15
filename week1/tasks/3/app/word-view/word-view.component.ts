@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, Output, EventEmitter } from '@angular/core'
 
 @Component({
 	moduleId: module.id,
@@ -9,18 +9,23 @@ import { Component, Input } from '@angular/core'
 export class WordView {
 
 	@Input() word: string;
+	@Input() hiddenLetters: string[];
 	@Input() numberHiddenLetters: number;
-	
+
+	@Output()
+	newWordGenerated = new EventEmitter();
+
 	displayedWord: string;
-	hiddenLetters: string[];
 
 	constructor() {
-		this.word = 'Test';
 	}
 
-	onWordChange() {
-		this.displayedWord = this.word;
-		this.hiddenLetters = this.partiallyHideWord(this.numberHiddenLetters);
+	ngOnChanges(data) {
+		if (data.word && this.word) {
+			this.displayedWord = this.word;
+			this.hiddenLetters = this.partiallyHideWord(this.numberHiddenLetters);
+			this.newWordGenerated.emit();
+		}
 	}
 
 	partiallyHideWord(maxNumberOfHiddenLetters?:number):string[] {

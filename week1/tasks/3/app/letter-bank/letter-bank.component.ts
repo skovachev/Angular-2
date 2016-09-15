@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core'
+import { Component, Output, EventEmitter, Input, ViewChildren, QueryList } from '@angular/core'
 import { DataSource } from '../shared/DataSource'
 import { LogDecorator } from '../shared/LogDecorator'
+import { Letter } from '../shared/letter/letter.component'
 
 @Component({
 	moduleId: module.id,
@@ -11,8 +12,12 @@ import { LogDecorator } from '../shared/LogDecorator'
 export class LetterBank {
 	@Input() word: string;
 	@Input() dataSource: DataSource;
+	@Input() hiddenLetters: string[];
+	@Input() gameOver: boolean;
 
-	hiddenLetters:string[];
+	@ViewChildren(Letter)
+	lettersList: QueryList<Letter>;
+
 	guessedLetters:string[];
 	displayedLetters:string[];
 
@@ -24,16 +29,25 @@ export class LetterBank {
 	guessEmitter = new EventEmitter();
 
 	constructor() {
+		this.displayedLetters = [];
 		this.numberGuessableLetters = this.totalLetters - this.numberHiddenLetters;
 	}
 
-	onWordChanged() {
-		this.hiddenLetters = [];
-		this.guessedLetters = [];
+	ngOnChanges(data) {
+		if (data.word && this.word) {
+			this.hiddenLetters = [];
+			this.guessedLetters = [];
+		}
 
-		this.addAdditionalCharsToGuess(this.numberGuessableLetters);
+		if (data.hiddenLetters && data.hiddenLetters.currentValue) {
+			this.hiddenLetters = data.hiddenLetters.currentValue;
+			this.guessedLetters = [];
+			this.displayedLetters = this.hiddenLetters.slice();
 
-		this.displayedLetters = this.hiddenLetters.slice();
+			this.addAdditionalCharsToGuess(this.numberGuessableLetters);
+
+			this.lettersList.forEach((item) => item.setClass(''));
+		}
 	}
 
 	letterGuessedCorrect(letter) {
@@ -55,13 +69,13 @@ export class LetterBank {
 	addAdditionalCharsToGuess(count:number) {
 		while(count > 0) {
 			let char = this.dataSource.getRandomAlphabetChar();
-			if (this.hiddenLetters.indexOf(char) !== -1) {
+			if (this.hiddenLetters.indexOf(char) !== -1 || !char) {
 				continue;
 			}
-			this.hiddenLetters.push(char);
+			this.displayedLetters.push(char);
 			count--;
 		}
-		this.hiddenLetters = this.shuffleArray(this.hiddenLetters);
+		this.displayedLetters = this.shuffleArray(this.displayedLetters);
 	}
 
 	shuffleArray(a) {
@@ -75,12 +89,17 @@ export class LetterBank {
 	    return a;
 	}
 
-	@LogDecorator
-	guessWithChar(char:string) {
+	guessWithLetter(letter:Letter) {
 		if (this.gameOver) {
 			return;
 		}
 
+		var correct = this.guessWithChar(letter.letter);
+		letter.setClass(correct ? 'correct' : 'incorrect');
+	}
+
+	@LogDecorator
+	guessWithChar(char:string) {
 		this.guessedLetters.push(char);
 
 		var foundIndex = this.hiddenLetters.indexOf(char);
@@ -92,6 +111,7 @@ export class LetterBank {
 				hiddenLettersCount: this.hiddenLetters.length,
 			});
 			this.hiddenLetters.splice(foundIndex, 1);
+			return true;
 		}
 		else {
 			// incorrect
@@ -101,6 +121,7 @@ export class LetterBank {
 				guessedLetters: this.guessedLetters,
 				hiddenLettersCount: this.hiddenLetters.length,
 			});
+			return false;
 		}
 	}
 }

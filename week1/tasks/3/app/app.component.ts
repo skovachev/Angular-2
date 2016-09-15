@@ -11,6 +11,7 @@ import { LetterBank } from './letter-bank/letter-bank.component'
 	styleUrls: ['app.component.css']
 })
 export class App {
+
 	@ViewChild(WordView) wordView: WordView;
 	@ViewChild(LetterBank) letterBank: LetterBank;
 
@@ -36,18 +37,13 @@ export class App {
 	timerLimitSec: number;
 	currentTime: number;
 
+	numberHiddenLetters: number = 3;
+
 	constructor() {
 		this.dataSource = new DataSource();
 		this.guessesDifficultyModifier = 5;
 		this.difficultySelected = false;
-
-		console.log(this.wordView);
-		console.log(this.letterBank);
 	}
-
-	ngAfterViewInit() {
-    	console.log(this.wordView);
-  	}
 
 	@LogDecorator
 	selectDifficulty(diff) {
@@ -91,15 +87,9 @@ export class App {
 		this.correctGuesses = 0;
 		this.incorrectGuesses = 0;
 
-		var totalLetters = 8;
-		var numberHiddenLetters = 3;
-		var numberGuessableLetters = totalLetters - numberHiddenLetters;
-
-		this.allowedGuesses = numberHiddenLetters + this.guessesDifficultyModifier;
+		this.allowedGuesses = this.numberHiddenLetters + this.guessesDifficultyModifier;
 
 		this.word = this.dataSource.getRandomWord();
-
-		console.log(this.word);
 
 		if (!this.word) {
 			this.presentSummary();
@@ -135,6 +125,7 @@ export class App {
 		this.dataSource.markWordAsUsed(currentWord);
 	}
 
+	@LogDecorator
 	onUserGuess(event) {
 		var correct = event.correct;
 
@@ -159,5 +150,10 @@ export class App {
 		if (event.guessedLetterCount >= this.allowedGuesses && !wordGuessed) {
 			this.gameCompleted(false);
 		}
+	}
+
+	@LogDecorator
+	onNewWordGenerated() {
+		this.letterBank.hiddenLetters = this.wordView.hiddenLetters;
 	}
 }

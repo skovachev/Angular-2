@@ -23,3 +23,7 @@ div {
 div.block {
 	padding: 0;
 }
+
+.block-hidden {
+	display: none;
+}

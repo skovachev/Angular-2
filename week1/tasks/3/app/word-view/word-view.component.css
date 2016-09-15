@@ -1,0 +1,14 @@
+div {
+	padding: 10px;
+}
+
+.label {
+	font-weight: bold;
+	display: inline-block;
+	color: grey;
+	margin-right: 10px;
+}
+
+.word {
+	text-transform: uppercase;
+}

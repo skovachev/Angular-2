@@ -1,0 +1,11 @@
+div {
+	padding: 10px;
+	// font-size: 2em;
+}
+
+.label {
+	font-weight: bold;
+	display: inline-block;
+	color: grey;
+	margin-right: 10px;
+}

@@ -1,0 +1,28 @@
+<div class='block' *ngIf="difficultySelected">
+	<div class='block' *ngIf="!showSummary">
+		<div>
+			<span class="label">Time remaining:</span> 
+			<span class="">{{ timerLimitSec - currentTime }}sec</span>
+		</div>
+
+		<word-view [word]='word'></word-view>
+
+		<letter-bank [word]='word' [dataSource]='dataSource' (user-guessed)="onUserGuess(event)"></letter-bank>
+
+		<button *ngIf="gameOver" (click)="nextWord()">Next Word</button>
+	</div>
+
+	<div class='block' *ngIf="showSummary">
+		<div>
+			<span class="label">Summary:</span> 
+			<span class="">{{ wordsCorrect.length }} of {{ wordsCorrect.length + wordsFailed.length }} correct</span>
+		</div>
+	</div>
+</div>
+
+<div class='block' *ngIf="!difficultySelected">
+	<span class="label">Select difficulty:</span>
+	<button (click)="selectDifficulty('Beginner')">Beginner</button>
+	<button (click)="selectDifficulty('Intermediate')">Intermediate</button>
+	<button (click)="selectDifficulty('Advanced')">Advanced</button>
+</div>

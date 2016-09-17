@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var DataSource_1 = require('./shared/DataSource');
 var LogDecorator_1 = require('./shared/LogDecorator');
 var word_view_component_1 = require('./word-view/word-view.component');
+var summary_component_1 = require('./summary/summary.component');
 var letter_bank_component_1 = require('./letter-bank/letter-bank.component');
 var App = (function () {
     function App() {
@@ -21,29 +22,12 @@ var App = (function () {
         this.difficultySelected = false;
     }
     App.prototype.selectDifficulty = function (diff) {
-        var modifier = 5, timer = 60;
-        switch (diff) {
-            case "Beginner":
-                modifier = 5;
-                timer = 60;
-                break;
-            case "Intermediate":
-                modifier = 4;
-                timer = 40;
-                break;
-            case "Advanced":
-                modifier = 2;
-                timer = 20;
-                break;
-        }
-        this.guessesDifficultyModifier = modifier;
+        this.guessesDifficultyModifier = diff.modifier;
         this.difficultySelected = true;
-        this.timerLimitSec = timer;
+        this.timerLimitSec = diff.timer;
         this.startNewGame();
     };
     App.prototype.startNewGame = function () {
-        this.wordsCorrect = [];
-        this.wordsFailed = [];
         this.nextWord();
     };
     App.prototype.nextWord = function () {
@@ -57,8 +41,6 @@ var App = (function () {
         this.word = this.dataSource.getRandomWord();
         if (!this.word) {
             this.presentSummary();
-        }
-        else {
         }
         this.countdownTimer = setInterval(function () {
             this.currentTime++;
@@ -75,10 +57,10 @@ var App = (function () {
         this.gameOver = true;
         var currentWord = this.wordView.getWord();
         if (won) {
-            this.wordsCorrect.push(currentWord);
+            this.summary.addCorrectWord(currentWord);
         }
         else {
-            this.wordsFailed.push(currentWord);
+            this.summary.addFailedWord(currentWord);
         }
         this.dataSource.markWordAsUsed(currentWord);
     };
@@ -114,6 +96,10 @@ var App = (function () {
         core_1.ViewChild(letter_bank_component_1.LetterBank), 
         __metadata('design:type', letter_bank_component_1.LetterBank)
     ], App.prototype, "letterBank", void 0);
+    __decorate([
+        core_1.ViewChild(summary_component_1.Summary), 
+        __metadata('design:type', summary_component_1.Summary)
+    ], App.prototype, "summary", void 0);
     __decorate([
         LogDecorator_1.LogDecorator, 
         __metadata('design:type', Function), 

@@ -14,7 +14,26 @@ var SelectDifficulty = (function () {
         this.difficultySelector = new core_1.EventEmitter();
     }
     SelectDifficulty.prototype.selectDifficulty = function (diff) {
-        this.difficultySelector.emit(diff);
+        var modifier = 5, timer = 60;
+        switch (diff) {
+            case "Beginner":
+                modifier = 5;
+                timer = 60;
+                break;
+            case "Intermediate":
+                modifier = 4;
+                timer = 40;
+                break;
+            case "Advanced":
+                modifier = 2;
+                timer = 20;
+                break;
+        }
+        var difficultyData = {
+            modifier: modifier,
+            timer: timer
+        };
+        this.difficultySelector.emit(difficultyData);
     };
     __decorate([
         core_1.Output('difficulty-selected'), 

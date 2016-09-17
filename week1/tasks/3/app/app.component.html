@@ -12,12 +12,7 @@
 		<button *ngIf="gameOver" (click)="nextWord()">Next Word</button>
 	</div>
 
-	<div class='block' *ngIf="showSummary">
-		<div>
-			<span class="label">Summary:</span> 
-			<span class="">{{ wordsCorrect.length }} of {{ wordsCorrect.length + wordsFailed.length }} correct</span>
-		</div>
-	</div>
+	<summary [hidden]='!showSummary'></summary>
 </div>
 
 <select-difficulty (difficulty-selected)="selectDifficulty($event)" [hidden]="difficultySelected"></select-difficulty>

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core'
 import { DataSource } from './shared/DataSource'
 import { LogDecorator } from './shared/LogDecorator'
 import { WordView } from './word-view/word-view.component'
+import { Summary } from './summary/summary.component'
 import { LetterBank } from './letter-bank/letter-bank.component'
 
 @Component({
@@ -14,15 +15,13 @@ export class App {
 
 	@ViewChild(WordView) wordView: WordView;
 	@ViewChild(LetterBank) letterBank: LetterBank;
+	@ViewChild(Summary) summary: Summary;
 
 	word: string;
 
 	dataSource: DataSource;
 
 	gameOver:boolean;
-
-	wordsCorrect: string[];
-	wordsFailed: string[];
 
 	guessesDifficultyModifier: number;
 	allowedGuesses: number;
@@ -47,32 +46,14 @@ export class App {
 
 	@LogDecorator
 	selectDifficulty(diff) {
-		var modifier = 5,
-			timer = 60;
-		switch (diff) {
-			case "Beginner":
-				modifier = 5;
-				timer = 60;
-				break;
-			case "Intermediate":
-				modifier = 4;
-				timer = 40;
-				break;
-			case "Advanced":
-				modifier = 2;
-				timer = 20;
-				break;
-		}
-		this.guessesDifficultyModifier = modifier;
+		this.guessesDifficultyModifier = diff.modifier;
 		this.difficultySelected = true;
-		this.timerLimitSec = timer;
+		this.timerLimitSec = diff.timer;
 		this.startNewGame();
 	}
 
 	@LogDecorator
 	startNewGame() {
-		this.wordsCorrect = [];
-		this.wordsFailed = [];
 		this.nextWord();
 	}
 
@@ -94,9 +75,6 @@ export class App {
 		if (!this.word) {
 			this.presentSummary();
 		}
-		else {
-			// TODO: reset sub components
-		}
 
 		this.countdownTimer = setInterval(function(){
 			this.currentTime++;
@@ -117,10 +95,10 @@ export class App {
 		this.gameOver = true;
 		var currentWord = this.wordView.getWord();
 		if (won) {
-			this.wordsCorrect.push(currentWord);
+			this.summary.addCorrectWord(currentWord);
 		}
 		else {
-			this.wordsFailed.push(currentWord);
+			this.summary.addFailedWord(currentWord);
 		}
 		this.dataSource.markWordAsUsed(currentWord);
 	}

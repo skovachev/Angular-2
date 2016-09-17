@@ -1,4 +1,4 @@
-<div class='block' [class.block-hidden]="!difficultySelected">
+<div class='block' [hidden]="!difficultySelected">
 	<div class='block' *ngIf="!showSummary">
 		<div>
 			<span class="label">Time remaining:</span> 
@@ -20,9 +20,4 @@
 	</div>
 </div>
 
-<div class='block' [class.block-hidden]="difficultySelected">
-	<span class="label">Select difficulty:</span>
-	<button (click)="selectDifficulty('Beginner')">Beginner</button>
-	<button (click)="selectDifficulty('Intermediate')">Intermediate</button>
-	<button (click)="selectDifficulty('Advanced')">Advanced</button>
-</div>
+<select-difficulty (difficulty-selected)="selectDifficulty($event)" [hidden]="difficultySelected"></select-difficulty>

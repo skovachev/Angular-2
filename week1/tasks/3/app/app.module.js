@@ -13,6 +13,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var word_view_component_1 = require('./word-view/word-view.component');
 var letter_bank_component_1 = require('./letter-bank/letter-bank.component');
 var letter_component_1 = require('./shared/letter/letter.component');
+var select_difficulty_component_1 = require('./select-difficulty/select-difficulty.component');
 var app_component_1 = require('./app.component');
 var AppModule = (function () {
     function AppModule() {
@@ -20,7 +21,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.App, word_view_component_1.WordView, letter_bank_component_1.LetterBank, letter_component_1.Letter],
+            declarations: [app_component_1.App, word_view_component_1.WordView, letter_bank_component_1.LetterBank, letter_component_1.Letter, select_difficulty_component_1.SelectDifficulty],
             bootstrap: [app_component_1.App]
         }), 
         __metadata('design:paramtypes', [])

@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef, Input, TemplateRef, ElementRef, ContentChildren, ContentChild } from "@angular/core";
+import { Directive, ViewContainerRef, Input, TemplateRef, ElementRef, ContentChild } from "@angular/core";
 
 @Directive({
 	selector: '[ifElse]'
@@ -29,7 +29,6 @@ export class ifElse
 
 	reeval() {
 		this._vcr.clear();
-		console.log(this.trueEl, this.falseEl);
 		if (this.cond) {
 			this._vcr.createEmbeddedView(this.trueEl);
 		}

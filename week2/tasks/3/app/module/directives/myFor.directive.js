@@ -9,51 +9,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var ifElse = (function () {
-    function ifElse(_vcr, _el) {
+var myFor = (function () {
+    function myFor(_vcr, _el) {
         this._vcr = _vcr;
         this._el = _el;
+        this.array = [];
     }
-    ifElse.prototype.ngAfterContentInit = function () {
-        this.reeval();
-    };
-    Object.defineProperty(ifElse.prototype, "ifElse", {
-        set: function (cond) {
-            this.cond = cond;
-            this.reeval();
+    Object.defineProperty(myFor.prototype, "myFor", {
+        set: function (array) {
+            this.array = array;
+            this.runLoop();
         },
         enumerable: true,
         configurable: true
     });
-    ifElse.prototype.reeval = function () {
+    myFor.prototype.runLoop = function () {
+        var _this = this;
         this._vcr.clear();
-        if (this.cond) {
-            this._vcr.createEmbeddedView(this.trueEl);
-        }
-        else {
-            this._vcr.createEmbeddedView(this.falseEl);
-        }
+        if (!this.child)
+            return;
+        this.array.forEach(function (item) {
+            _this._vcr.createEmbeddedView(_this.child, {
+                item: item
+            });
+        });
     };
     __decorate([
-        core_1.ContentChild('true'), 
+        core_1.ContentChild(core_1.TemplateRef), 
         __metadata('design:type', core_1.TemplateRef)
-    ], ifElse.prototype, "trueEl", void 0);
-    __decorate([
-        core_1.ContentChild('false'), 
-        __metadata('design:type', core_1.TemplateRef)
-    ], ifElse.prototype, "falseEl", void 0);
+    ], myFor.prototype, "child", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Boolean), 
-        __metadata('design:paramtypes', [Boolean])
-    ], ifElse.prototype, "ifElse", null);
-    ifElse = __decorate([
+        __metadata('design:type', Array), 
+        __metadata('design:paramtypes', [Array])
+    ], myFor.prototype, "myFor", null);
+    myFor = __decorate([
         core_1.Directive({
-            selector: '[ifElse]'
+            selector: '[myFor]'
         }), 
         __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.ElementRef])
-    ], ifElse);
-    return ifElse;
+    ], myFor);
+    return myFor;
 }());
-exports.ifElse = ifElse;
-//# sourceMappingURL=ifElse.directive.js.map
+exports.myFor = myFor;
+//# sourceMappingURL=myFor.directive.js.map

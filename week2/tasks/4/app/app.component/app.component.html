@@ -1,6 +1,6 @@
-<div [ifElse]="cond">
-    <template #true>Its True</template>
-    <template #false>Its False</template>
-</div> 
+<div [ifElseStar]="cond">
+    <div *ifTrueCase class='test'>The truth!</div>
+    <div *ifFalseCase>The lie!</div>
+</div>
 
 <button (click)='toggle()'>Toggle</button>

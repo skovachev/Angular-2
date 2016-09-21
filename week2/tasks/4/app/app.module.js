@@ -10,7 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-var ifElse_directive_1 = require('./directives/ifElse.directive');
+var ifElseStar_directive_1 = require('./directives/ifElseStar.directive');
+var ifTrueCase_directive_1 = require('./directives/ifTrueCase.directive');
+var ifFalseCase_directive_1 = require('./directives/ifFalseCase.directive');
 var app_component_1 = require('./app.component/app.component');
 var AppModule = (function () {
     function AppModule() {
@@ -18,7 +20,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.App, ifElse_directive_1.ifElse],
+            declarations: [app_component_1.App, ifElseStar_directive_1.ifElseStar, ifFalseCase_directive_1.ifFalseCase, ifTrueCase_directive_1.ifTrueCase],
             bootstrap: [app_component_1.App]
         }), 
         __metadata('design:paramtypes', [])

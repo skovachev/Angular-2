@@ -26,6 +26,10 @@ var UserListComponent = (function () {
         });
         this.editedUser = null;
     };
+    UserListComponent.prototype.validForm = function (form) {
+        return this.validator.validPassword(form.password)
+            && this.validator.validPasswordConfirmation(form.password_confirmation, form.password);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)

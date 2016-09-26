@@ -32,4 +32,9 @@ export class UserListComponent {
 		});
 		this.editedUser = null;
 	}
+
+	validForm(form) {
+		return this.validator.validPassword(form.password) 
+			&& this.validator.validPasswordConfirmation(form.password_confirmation, form.password);
+	}
 }

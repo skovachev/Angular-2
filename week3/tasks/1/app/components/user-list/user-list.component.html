@@ -27,5 +27,6 @@
 		</div>
 	</form>
 
-	<button (click)='saveUser(theForm.value)'>Save</button>
+	<button [hidden]='!validForm(theForm.value)' (click)='saveUser(theForm.value)'>Save</button>
+	<button (click)='editedUser=null'>Cancel</button>
 </div>

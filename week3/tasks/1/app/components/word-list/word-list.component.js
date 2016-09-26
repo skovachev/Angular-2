@@ -13,6 +13,7 @@ var index_1 = require('./../../shared/index');
 var WordListComponent = (function () {
     function WordListComponent() {
         this.wordChanged = new core_1.EventEmitter();
+        this.wordRemoved = new core_1.EventEmitter();
         this.validator = new index_1.Validator();
     }
     WordListComponent.prototype.editWord = function (user) {
@@ -32,6 +33,9 @@ var WordListComponent = (function () {
         this.editedWord = new index_1.Word('', this.currentUser.email);
         console.log(this.editedWord);
     };
+    WordListComponent.prototype.removeWord = function (word) {
+        this.wordRemoved.emit(word);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)
@@ -44,6 +48,10 @@ var WordListComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], WordListComponent.prototype, "wordChanged", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], WordListComponent.prototype, "wordRemoved", void 0);
     WordListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

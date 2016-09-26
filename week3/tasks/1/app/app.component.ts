@@ -50,6 +50,10 @@ export class App {
 		this.words = this.wordsService.updateWord(changedWord, changedData, this.words);
 	}
 
+	onWordRemoved(word) {
+		this.words = this.wordsService.removeWord(word, this.words);
+	}
+
 	storeUser(user:User) {
 		this.users.push(user);
 		this.usersService.storeUsers(this.users);

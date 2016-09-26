@@ -44,4 +44,15 @@ export class WordsService {
 		this.storeWords(words);
 		return words;
 	}
+
+	removeWord(word, words) {
+		for(let index in words) {
+			let currentWord = words[index];
+			if (currentWord.text == word.text && currentWord.addedBy == word.addedBy) {
+				words.splice(index, 1);
+			}
+		}
+		this.storeWords(words);
+		return words;
+	}
 }

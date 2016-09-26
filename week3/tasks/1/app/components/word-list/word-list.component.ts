@@ -20,6 +20,9 @@ export class WordListComponent {
 	@Output()
 	wordChanged = new EventEmitter<Object>();
 
+	@Output()
+	wordRemoved = new EventEmitter<Object>();
+
 	constructor() {
 		this.validator = new Validator();
 	}	
@@ -43,5 +46,9 @@ export class WordListComponent {
 	addNewWord(){
 		this.editedWord = new Word('', this.currentUser.email);
 		console.log(this.editedWord);
+	}
+
+	removeWord(word) {
+		this.wordRemoved.emit(word);
 	}
 }

@@ -40,6 +40,16 @@ var WordsService = (function () {
         this.storeWords(words);
         return words;
     };
+    WordsService.prototype.removeWord = function (word, words) {
+        for (var index in words) {
+            var currentWord = words[index];
+            if (currentWord.text == word.text && currentWord.addedBy == word.addedBy) {
+                words.splice(index, 1);
+            }
+        }
+        this.storeWords(words);
+        return words;
+    };
     return WordsService;
 }());
 exports.WordsService = WordsService;

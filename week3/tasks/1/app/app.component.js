@@ -35,6 +35,9 @@ var App = (function () {
         var changedWord = event.word, changedData = event.data;
         this.words = this.wordsService.updateWord(changedWord, changedData, this.words);
     };
+    App.prototype.onWordRemoved = function (word) {
+        this.words = this.wordsService.removeWord(word, this.words);
+    };
     App.prototype.storeUser = function (user) {
         this.users.push(user);
         this.usersService.storeUsers(this.users);

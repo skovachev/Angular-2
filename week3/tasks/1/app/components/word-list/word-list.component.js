@@ -10,43 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var index_1 = require('./../../shared/index');
-var UserListComponent = (function () {
-    function UserListComponent() {
-        this.userChanged = new core_1.EventEmitter();
+var WordListComponent = (function () {
+    function WordListComponent() {
+        this.wordChanged = new core_1.EventEmitter();
         this.validator = new index_1.Validator();
     }
-    UserListComponent.prototype.editUser = function (user) {
-        this.editedUser = user;
+    WordListComponent.prototype.editWord = function (user) {
+        this.editedWord = user;
     };
-    UserListComponent.prototype.saveUser = function (data) {
-        this.userChanged.emit({
-            user: this.editedUser,
+    WordListComponent.prototype.saveWord = function (data) {
+        this.wordChanged.emit({
+            word: this.editedWord,
             data: data
         });
-        this.editedUser = null;
+        this.editedWord = null;
     };
-    UserListComponent.prototype.validForm = function (form) {
-        return this.validator.validPassword(form.password)
-            && this.validator.validPasswordConfirmation(form.password_confirmation, form.password);
+    WordListComponent.prototype.validForm = function (form) {
+        return true;
+    };
+    WordListComponent.prototype.addNewWord = function () {
+        this.editedWord = new index_1.Word('');
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)
-    ], UserListComponent.prototype, "users", void 0);
+    ], WordListComponent.prototype, "words", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
-    ], UserListComponent.prototype, "userChanged", void 0);
-    UserListComponent = __decorate([
+    ], WordListComponent.prototype, "wordChanged", void 0);
+    WordListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'user-list',
-            templateUrl: 'user-list.component.html',
-            styleUrls: ['user-list.component.css']
+            selector: 'word-list',
+            templateUrl: 'word-list.component.html',
+            styleUrls: ['word-list.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], UserListComponent);
-    return UserListComponent;
+    ], WordListComponent);
+    return WordListComponent;
 }());
-exports.UserListComponent = UserListComponent;
-//# sourceMappingURL=user-list.component.js.map
+exports.WordListComponent = WordListComponent;
+//# sourceMappingURL=word-list.component.js.map

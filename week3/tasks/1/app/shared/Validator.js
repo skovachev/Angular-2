@@ -12,6 +12,9 @@ var Validator = (function () {
     Validator.prototype.validPasswordConfirmation = function (passwordConfirmation, password) {
         return passwordConfirmation == password;
     };
+    Validator.prototype.validWord = function (word) {
+        return word && word.length > 0 && word.indexOf(' ') === -1;
+    };
     return Validator;
 }());
 exports.Validator = Validator;

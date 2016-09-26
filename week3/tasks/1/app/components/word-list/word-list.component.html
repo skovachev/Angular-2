@@ -1,0 +1,26 @@
+<div *ngIf='!editedWord'>
+	<button (click)='addNewWord()'>Add new word</button>
+
+	<table>
+		<tr *ngFor="let word of words">
+			<td>{{ word.text }}</td>
+			<td>
+				<button (click)='editWord(word)'>Edit</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div *ngIf='editedWord'>
+	<form #theForm='ngForm'>
+		<div>
+			<label>Text
+				<input type="text" name='text' ngModel #text='ngModel' required>
+				<div [hidden]='validator.validWord(text.value) || text.untouched'>Text is not valid</div>
+			</label>
+		</div>
+	</form>
+
+	<button [hidden]='!validForm(theForm.value)' (click)='saveWord(theForm.value)'>Save</button>
+	<button (click)='editedWord=null'>Cancel</button>
+</div>

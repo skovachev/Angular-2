@@ -15,4 +15,8 @@ export class Validator {
 	validPasswordConfirmation(passwordConfirmation:string, password:string) {
 		return passwordConfirmation == password;
 	}
+
+	validWord(word) {
+		return word && word.length > 0 && word.indexOf(' ') === -1;
+	}
 }

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { User } from './shared/index'
+import { User, Word } from './shared/index'
 import { RegisterComponent } from './components/register';
 
 @Component({
@@ -11,10 +11,12 @@ import { RegisterComponent } from './components/register';
 export class App {
 	route:string
 	users:User[]
+	words:Word[]
 	currentUser:User
 
 	constructor() {
 		this.users = this.loadUsers();
+		this.words = this.loadWords();
 		this.currentUser = this.getLoggedInUser();
 		this.route = this.currentUser ? 'users' : 'register';
 	}
@@ -45,6 +47,30 @@ export class App {
 		});
 
 		this.storeUsers();
+	}
+
+	onWordChanged(event) {
+		var changedWord = event.word,
+			changedData = event.data,
+			wordFound = false;
+
+		this.words.forEach(function(word, index, words) {
+			if (word.text == changedWord.text) {
+				for(let key in changedData) {
+					let value = changedData[key];
+					word[key] = value;
+				}
+				words[index] = word;
+				wordFound = true;
+			}
+		});
+
+		if (!wordFound) {
+			var word = Word.unserialise(changedData);
+			this.words.push(word);
+		}
+
+		this.storeWords();
 	}
 
 	loginUser(user) {
@@ -78,5 +104,21 @@ export class App {
 	storeUsers() {
 		var users = this.users.map((user) => user.toJson());
 		localStorage.setItem('users', JSON.stringify(users));
+	}
+
+	loadWords() {
+		var words = localStorage.getItem('words');
+		if (words) {
+			words = JSON.parse(words);
+		}
+		if (!words) {
+			words = [];
+		}
+		return words.map((serialised) => Word.unserialise(serialised));
+	}
+
+	storeWords() {
+		var words = this.words.map((user) => user.toJson());
+		localStorage.setItem('words', JSON.stringify(words));
 	}
 }

@@ -3,10 +3,14 @@
 		You are logged in as {{ currentUser.email }}
 	</div>
 
+	<button [hidden]='route=="users"' (click)='route="users"'>Users</button>
+	<button [hidden]='route=="words"' (click)='route="words"'>Words</button>
+
 	<user-list *ngIf="route === 'users'" [users]='users' (userChanged)='onUserChanged($event)'></user-list>
 
-	
-
+	<word-list *ngIf="route === 'words'" [words]='words' (wordChanged)='onWordChanged($event)'></word-list>
 </div>
 
-<register *ngIf="!currentUser || route === 'register'" (userRegistered)='onUserRegistered($event)'></register>
+<div *ngIf='!currentUser'>
+	<register *ngIf="route === 'register'" (userRegistered)='onUserRegistered($event)'></register>
+</div>

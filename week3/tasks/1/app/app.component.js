@@ -13,6 +13,7 @@ var index_1 = require('./shared/index');
 var App = (function () {
     function App() {
         this.users = this.loadUsers();
+        this.words = this.loadWords();
         this.currentUser = this.getLoggedInUser();
         this.route = this.currentUser ? 'users' : 'register';
     }
@@ -36,6 +37,24 @@ var App = (function () {
             }
         });
         this.storeUsers();
+    };
+    App.prototype.onWordChanged = function (event) {
+        var changedWord = event.word, changedData = event.data, wordFound = false;
+        this.words.forEach(function (word, index, words) {
+            if (word.text == changedWord.text) {
+                for (var key in changedData) {
+                    var value = changedData[key];
+                    word[key] = value;
+                }
+                words[index] = word;
+                wordFound = true;
+            }
+        });
+        if (!wordFound) {
+            var word = index_1.Word.unserialise(changedData);
+            this.words.push(word);
+        }
+        this.storeWords();
     };
     App.prototype.loginUser = function (user) {
         localStorage.setItem('currentUser', JSON.stringify(user.toJson()));
@@ -64,6 +83,20 @@ var App = (function () {
     App.prototype.storeUsers = function () {
         var users = this.users.map(function (user) { return user.toJson(); });
         localStorage.setItem('users', JSON.stringify(users));
+    };
+    App.prototype.loadWords = function () {
+        var words = localStorage.getItem('words');
+        if (words) {
+            words = JSON.parse(words);
+        }
+        if (!words) {
+            words = [];
+        }
+        return words.map(function (serialised) { return index_1.Word.unserialise(serialised); });
+    };
+    App.prototype.storeWords = function () {
+        var words = this.words.map(function (user) { return user.toJson(); });
+        localStorage.setItem('words', JSON.stringify(words));
     };
     App = __decorate([
         core_1.Component({

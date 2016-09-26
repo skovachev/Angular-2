@@ -25,7 +25,6 @@ export class UserListComponent {
 	}
 
 	saveUser(data) {
-		alert('Saving user: ' + this.editedUser.email);
 		this.userChanged.emit({
 			user: this.editedUser,
 			data: data

@@ -1,1 +1,12 @@
-Test
+<div *ngIf="currentUser">
+	<div>
+		You are logged in as {{ currentUser.email }}
+	</div>
+
+	<user-list *ngIf="route === 'users'" [users]='users' (userChanged)='onUserChanged($event)'></user-list>
+
+	
+
+</div>
+
+<register *ngIf="!currentUser || route === 'register'" (userRegistered)='onUserRegistered($event)'></register>

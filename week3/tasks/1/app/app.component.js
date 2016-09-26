@@ -12,96 +12,32 @@ var core_1 = require('@angular/core');
 var index_1 = require('./shared/index');
 var App = (function () {
     function App() {
-        this.users = this.loadUsers();
-        this.words = this.loadWords();
-        this.currentUser = this.getLoggedInUser();
+        this.wordsService = new index_1.WordsService();
+        this.usersService = new index_1.UsersService();
+        this.users = this.usersService.loadUsers();
+        this.words = this.wordsService.loadWords();
+        this.currentUser = this.usersService.getLoggedInUser();
         this.route = this.currentUser ? 'users' : 'register';
     }
     App.prototype.onUserRegistered = function (user) {
         this.storeUser(user);
         this.currentUser = user;
         console.log('New user registered: ', user);
-        this.loginUser(user);
+        this.usersService.loginUser(user);
         // go to users list
         this.route = 'users';
     };
     App.prototype.onUserChanged = function (event) {
         var changedUser = event.user, changedData = event.data;
-        this.users.forEach(function (user, index, users) {
-            if (user.email == changedUser.email) {
-                for (var key in changedData) {
-                    var value = changedData[key];
-                    user[key] = value;
-                }
-                users[index] = user;
-            }
-        });
-        this.storeUsers();
+        this.users = this.usersService.updateUser(changedUser, changedData, this.users);
     };
     App.prototype.onWordChanged = function (event) {
-        var changedWord = event.word, changedData = event.data, wordFound = false;
-        this.words.forEach(function (word, index, words) {
-            if (word.text == changedWord.text) {
-                for (var key in changedData) {
-                    var value = changedData[key];
-                    word[key] = value;
-                }
-                words[index] = word;
-                wordFound = true;
-            }
-        });
-        if (!wordFound) {
-            var word = new index_1.Word(changedWord.text, changedWord.addedBy);
-            for (var key in changedData) {
-                var value = changedData[key];
-                word[key] = value;
-            }
-            this.words.push(word);
-            console.log(this.words);
-        }
-        this.storeWords();
-    };
-    App.prototype.loginUser = function (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user.toJson()));
-    };
-    App.prototype.getLoggedInUser = function () {
-        var user = localStorage.getItem('currentUser');
-        if (user) {
-            return index_1.User.unserialise(JSON.parse(user));
-        }
-        return null;
+        var changedWord = event.word, changedData = event.data;
+        this.words = this.wordsService.updateWord(changedWord, changedData, this.words);
     };
     App.prototype.storeUser = function (user) {
         this.users.push(user);
-        this.storeUsers();
-    };
-    App.prototype.loadUsers = function () {
-        var users = localStorage.getItem('users');
-        if (users) {
-            users = JSON.parse(users);
-        }
-        if (!users) {
-            users = [];
-        }
-        return users.map(function (serializedUser) { return index_1.User.unserialise(serializedUser); });
-    };
-    App.prototype.storeUsers = function () {
-        var users = this.users.map(function (user) { return user.toJson(); });
-        localStorage.setItem('users', JSON.stringify(users));
-    };
-    App.prototype.loadWords = function () {
-        var words = localStorage.getItem('words');
-        if (words) {
-            words = JSON.parse(words);
-        }
-        if (!words) {
-            words = [];
-        }
-        return words.map(function (serialised) { return index_1.Word.unserialise(serialised); });
-    };
-    App.prototype.storeWords = function () {
-        var words = this.words.map(function (word) { return word.toJson(); });
-        localStorage.setItem('words', JSON.stringify(words));
+        this.usersService.storeUsers(this.users);
     };
     App = __decorate([
         core_1.Component({

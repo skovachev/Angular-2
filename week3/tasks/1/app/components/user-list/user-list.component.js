@@ -15,6 +15,9 @@ var UserListComponent = (function () {
         this.userChanged = new core_1.EventEmitter();
         this.validator = new index_1.Validator();
     }
+    UserListComponent.prototype.ngOnInit = function () {
+        this.displayedUsers = this.users;
+    };
     UserListComponent.prototype.editUser = function (user) {
         this.editedUser = user;
     };
@@ -28,6 +31,12 @@ var UserListComponent = (function () {
     UserListComponent.prototype.validForm = function (form) {
         return this.validator.validPassword(form.password)
             && this.validator.validPasswordConfirmation(form.password_confirmation, form.password);
+    };
+    UserListComponent.prototype.filterUsers = function (filter) {
+        if (!filter)
+            return;
+        var re = new RegExp('.*' + filter + '.*', 'i');
+        this.displayedUsers = this.users.filter(function (user) { return re.test(user.email); });
     };
     __decorate([
         core_1.Input(), 

@@ -1,12 +1,16 @@
-<table *ngIf='!editedUser'>
-	<tr *ngFor="let user of users">
-		<td>{{ user.email }}</td>
-		<td>{{ user.password }}</td>
-		<td>
-			<button (click)='editUser(user)'>Edit</button>
-		</td>
-	</tr>
-</table>
+<div *ngIf='!editedUser'>
+	<input type="text" (input)='filterUsers($event.target.value)' placeholder="Filter by email">
+	<table>
+		<tr *ngFor="let user of displayedUsers">
+			<td>{{ user.email }}</td>
+			<td>{{ user.password }}</td>
+			<td>
+				<button (click)='editUser(user)'>Edit</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
 
 <div *ngIf='editedUser'>
 	Editing user {{ editedUser.email }}

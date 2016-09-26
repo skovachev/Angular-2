@@ -12,6 +12,7 @@ export class UserListComponent {
 	users:User[]
 	editedUser:User
 	validator: Validator
+	displayedUsers:User[]
 
 	@Output()
 	userChanged = new EventEmitter<Object>();
@@ -19,6 +20,10 @@ export class UserListComponent {
 	constructor() {
 		this.validator = new Validator();
 	}	
+
+	ngOnInit() {
+		this.displayedUsers = this.users;
+	}
 
 	editUser(user) {
 		this.editedUser = user;
@@ -35,5 +40,11 @@ export class UserListComponent {
 	validForm(form) {
 		return this.validator.validPassword(form.password) 
 			&& this.validator.validPasswordConfirmation(form.password_confirmation, form.password);
+	}
+
+	filterUsers(filter) {
+		if (!filter) return;
+		var re = new RegExp('.*' + filter + '.*', 'i');
+		this.displayedUsers = this.users.filter((user) => re.test(user.email));
 	}
 }

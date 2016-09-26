@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
-import { Word, Validator } from './../../shared/index'
+import { Word, Validator, User } from './../../shared/index'
 
 @Component({
 	moduleId: module.id,
@@ -10,8 +10,12 @@ import { Word, Validator } from './../../shared/index'
 export class WordListComponent {
 	@Input()
 	words:Word[]
+
 	editedWord:Word
 	validator: Validator
+
+	@Input()
+	currentUser: User;
 
 	@Output()
 	wordChanged = new EventEmitter<Object>();
@@ -37,6 +41,7 @@ export class WordListComponent {
 	}
 
 	addNewWord(){
-		this.editedWord = new Word('');
+		this.editedWord = new Word('', this.currentUser.email);
+		console.log(this.editedWord);
 	}
 }

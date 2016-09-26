@@ -29,12 +29,17 @@ var WordListComponent = (function () {
         return true;
     };
     WordListComponent.prototype.addNewWord = function () {
-        this.editedWord = new index_1.Word('');
+        this.editedWord = new index_1.Word('', this.currentUser.email);
+        console.log(this.editedWord);
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)
     ], WordListComponent.prototype, "words", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', index_1.User)
+    ], WordListComponent.prototype, "currentUser", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

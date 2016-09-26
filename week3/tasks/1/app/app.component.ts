@@ -66,8 +66,13 @@ export class App {
 		});
 
 		if (!wordFound) {
-			var word = Word.unserialise(changedData);
+			var word = new Word(changedWord.text, changedWord.addedBy);
+			for(let key in changedData) {
+				let value = changedData[key];
+				word[key] = value;
+			}
 			this.words.push(word);
+			console.log(this.words);
 		}
 
 		this.storeWords();
@@ -118,7 +123,7 @@ export class App {
 	}
 
 	storeWords() {
-		var words = this.words.map((user) => user.toJson());
+		var words = this.words.map((word) => word.toJson());
 		localStorage.setItem('words', JSON.stringify(words));
 	}
 }

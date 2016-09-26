@@ -51,8 +51,13 @@ var App = (function () {
             }
         });
         if (!wordFound) {
-            var word = index_1.Word.unserialise(changedData);
+            var word = new index_1.Word(changedWord.text, changedWord.addedBy);
+            for (var key in changedData) {
+                var value = changedData[key];
+                word[key] = value;
+            }
             this.words.push(word);
+            console.log(this.words);
         }
         this.storeWords();
     };
@@ -95,7 +100,7 @@ var App = (function () {
         return words.map(function (serialised) { return index_1.Word.unserialise(serialised); });
     };
     App.prototype.storeWords = function () {
-        var words = this.words.map(function (user) { return user.toJson(); });
+        var words = this.words.map(function (word) { return word.toJson(); });
         localStorage.setItem('words', JSON.stringify(words));
     };
     App = __decorate([

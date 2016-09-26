@@ -4,6 +4,7 @@
 	<table>
 		<tr *ngFor="let word of words">
 			<td>{{ word.text }}</td>
+			<td>{{ word.addedBy }}</td>
 			<td>
 				<button (click)='editWord(word)'>Edit</button>
 			</td>

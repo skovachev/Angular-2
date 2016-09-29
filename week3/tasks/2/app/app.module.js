@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var register_component_1 = require('./components/register/register.component');
 var notRegistered_directive_1 = require('./components/register/notRegistered.directive');
+var datepicker_component_1 = require('./components/register/datepicker.component');
 var user_list_component_1 = require('./components/user-list/user-list.component');
 var word_list_component_1 = require('./components/word-list/word-list.component');
 var AppModule = (function () {
@@ -22,7 +23,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-            declarations: [app_component_1.App, register_component_1.RegisterComponent, user_list_component_1.UserListComponent, word_list_component_1.WordListComponent, notRegistered_directive_1.NotRegistered],
+            declarations: [app_component_1.App, register_component_1.RegisterComponent, user_list_component_1.UserListComponent, word_list_component_1.WordListComponent, notRegistered_directive_1.NotRegistered, datepicker_component_1.DatepickerComponent],
             bootstrap: [app_component_1.App]
         }), 
         __metadata('design:paramtypes', [])

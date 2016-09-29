@@ -15,13 +15,11 @@ export class NotRegistered {
 
 	@Input() 
 	set notRegistered(field:string) {
-		console.log(field);
         this.field = field;
     }
 
 	validate(c: FormControl) {
         let registeredFields = this.users.loadUsers().map((user) => user[this.field]);
-        console.log(registeredFields, c.value, registeredFields.indexOf(c.value) === -1);
         let valid = registeredFields.indexOf(c.value) === -1;
         return valid ? null : { notRegistered: { valid: false } };
     }

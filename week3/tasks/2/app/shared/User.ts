@@ -1,5 +1,5 @@
 export class User {
-	constructor(public email:string, private password:string){
+	constructor(public email:string, private password:string, private birthdate:string = null){
 		
 	}
 
@@ -7,11 +7,12 @@ export class User {
 		return {
 			email: this.email,
 			password: this.password
+			birthdate: this.birthdate
 		};
 	}
 
 	static unserialise(userData) {
-	    var user = new User(userData.email, userData.password);
+	    var user = new User(userData.email, userData.password, userData.birthdate);
 	    return user;
 	}
 }

@@ -17,7 +17,6 @@ var NotRegistered = (function () {
     }
     Object.defineProperty(NotRegistered.prototype, "notRegistered", {
         set: function (field) {
-            console.log(field);
             this.field = field;
         },
         enumerable: true,
@@ -26,7 +25,6 @@ var NotRegistered = (function () {
     NotRegistered.prototype.validate = function (c) {
         var _this = this;
         var registeredFields = this.users.loadUsers().map(function (user) { return user[_this.field]; });
-        console.log(registeredFields, c.value, registeredFields.indexOf(c.value) === -1);
         var valid = registeredFields.indexOf(c.value) === -1;
         return valid ? null : { notRegistered: { valid: false } };
     };

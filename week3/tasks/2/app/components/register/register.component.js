@@ -11,12 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var index_1 = require('./../../shared/index');
 var RegisterComponent = (function () {
-    function RegisterComponent() {
+    function RegisterComponent(validator) {
+        this.validator = validator;
         this.userRegistered = new core_1.EventEmitter();
-        this.validator = new index_1.Validator();
+        this.bday = '04.04.1986';
     }
     RegisterComponent.prototype.registerUser = function (data) {
-        var user = new index_1.User(data.email, data.password);
+        var user = new index_1.User(data.email, data.password, data.birthday);
         this.userRegistered.emit(user);
         return false;
     };
@@ -34,9 +35,10 @@ var RegisterComponent = (function () {
             moduleId: module.id,
             selector: 'register',
             templateUrl: 'register.component.html',
-            styleUrls: ['register.component.css']
+            styleUrls: ['register.component.css'],
+            providers: [index_1.Validator]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [index_1.Validator])
     ], RegisterComponent);
     return RegisterComponent;
 }());

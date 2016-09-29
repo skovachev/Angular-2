@@ -10,6 +10,15 @@
 		</label>
 	</div>
 	<div>
+		<label>Birth Date
+			<datepicker [name]='"birthday"' [(ngModel)]='bday' #birthdate='ngModel' required></datepicker>
+			<div [hidden]='!birthdate.errors'>
+				<div *ngIf='birthdate.errors'>Invalid birth date</div>
+			</div>
+		</label>
+		{{ bday }}
+	</div>
+	<div>
 		<label>Password
 			<input type="text" name='password' ngModel #password='ngModel' required>
 			<div [hidden]='validator.validPassword(password.value) || password.untouched'>Password length must be > 8</div>
@@ -25,4 +34,6 @@
 	<button [hidden]='!validForm(theForm.value)' (click)='registerUser(theForm.value)'>
 		Register
 	</button>
+
+	{{ theForm.value | json }}
 </form>

@@ -5,20 +5,22 @@ import { User, Validator } from './../../shared/index'
 	moduleId: module.id,
 	selector: 'register',
 	templateUrl: 'register.component.html',
-	styleUrls: ['register.component.css']
+	styleUrls: ['register.component.css'],
+	providers: [Validator]
 })
 export class RegisterComponent {
 
-	validator: Validator;
-	constructor() {
-		this.validator = new Validator();
+	bday:string
+
+	constructor(private validator: Validator) {
+		this.bday = '04.04.1986';
 	}
 
 	@Output()
 	userRegistered = new EventEmitter<User>();
 
 	registerUser(data) {
-		var user = new User(data.email, data.password);
+		var user = new User(data.email, data.password, data.birthday);
 		this.userRegistered.emit(user);
 		return false;
 	}

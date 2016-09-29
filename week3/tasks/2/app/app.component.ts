@@ -6,17 +6,16 @@ import { RegisterComponent } from './components/register';
 	moduleId: module.id,
 	selector: 'app',
 	templateUrl: 'app.component.html',
-	styleUrls: ['app.component.css']
+	styleUrls: ['app.component.css'],
+	providers: [WordsService, UsersService]
 })
 export class App {
 	route:string
 	users:User[]
-	usersService: UsersService
 	words:Word[]
-	wordsService:WordsService
 	currentUser:User
 
-	constructor() {
+	constructor(private wordsService: WordsService, private usersService: UsersService) {
 		this.wordsService = new WordsService();
 		this.usersService = new UsersService();
 

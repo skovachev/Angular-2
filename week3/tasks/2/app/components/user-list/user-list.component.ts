@@ -6,19 +6,18 @@ import { User, Validator } from './../../shared/index'
 	selector: 'user-list',
 	templateUrl: 'user-list.component.html',
 	styleUrls: ['user-list.component.css']
+	providers: [Validator]
 })
 export class UserListComponent {
 	@Input()
 	users:User[]
 	editedUser:User
-	validator: Validator
 	displayedUsers:User[]
 
 	@Output()
 	userChanged = new EventEmitter<Object>();
 
-	constructor() {
-		this.validator = new Validator();
+	constructor(private validator: Validator) {
 	}	
 
 	ngOnInit() {

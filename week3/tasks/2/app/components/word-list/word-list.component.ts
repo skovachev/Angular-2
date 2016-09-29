@@ -5,14 +5,14 @@ import { Word, Validator, User } from './../../shared/index'
 	moduleId: module.id,
 	selector: 'word-list',
 	templateUrl: 'word-list.component.html',
-	styleUrls: ['word-list.component.css']
+	styleUrls: ['word-list.component.css'],
+	providers: [Validator]
 })
 export class WordListComponent {
 	@Input()
 	words:Word[]
 
 	editedWord:Word
-	validator: Validator
 
 	@Input()
 	currentUser: User;
@@ -23,8 +23,7 @@ export class WordListComponent {
 	@Output()
 	wordRemoved = new EventEmitter<Object>();
 
-	constructor() {
-		this.validator = new Validator();
+	constructor(private validator:Validator) {
 	}	
 
 	editWord(user) {

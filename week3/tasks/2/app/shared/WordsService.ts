@@ -1,5 +1,7 @@
+import { Injectable } from '@angular/core'
 import { Word } from './index'
 
+@Injectable()
 export class WordsService {
 
 	loadWords() {

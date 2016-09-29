@@ -1,0 +1,36 @@
+<div *ngIf='!editedUser'>
+	<input type="text" (input)='filterUsers($event.target.value)' placeholder="Filter by email">
+	<table>
+		<tr *ngFor="let user of displayedUsers">
+			<td>{{ user.email }}</td>
+			<td>{{ user.password }}</td>
+			<td>
+				<button (click)='editUser(user)'>Edit</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<div *ngIf='editedUser'>
+	Editing user {{ editedUser.email }}
+
+	<form #theForm='ngForm'>
+		<div>
+			<label>Password
+				<input type="text" name='password' ngModel #password='ngModel' required>
+				<div [hidden]='validator.validPassword(password.value) || password.untouched'>Password length must be > 8</div>
+			</label>
+		</div>
+		<div>
+			<label>Password Confirmation
+				<input type="text" name='password_confirmation' ngModel #password_confirmation='ngModel' required>
+				<div [hidden]='validator.validPassword(password_confirmation.value) || password_confirmation.untouched'>Password length must be > 8</div>
+				<div [hidden]='validator.validPasswordConfirmation(password_confirmation.value, password.value) || password_confirmation.untouched'>Password confirmation must match password</div>
+			</label>
+		</div>
+	</form>
+
+	<button [hidden]='!validForm(theForm.value)' (click)='saveUser(theForm.value)'>Save</button>
+	<button (click)='editedUser=null'>Cancel</button>
+</div>

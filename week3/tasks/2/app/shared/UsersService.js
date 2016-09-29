@@ -16,6 +16,9 @@ var UsersService = (function () {
     UsersService.prototype.loginUser = function (user) {
         localStorage.setItem('currentUser', JSON.stringify(user.toJson()));
     };
+    UsersService.prototype.logoutUser = function () {
+        localStorage.removeItem('currentUser');
+    };
     UsersService.prototype.getLoggedInUser = function () {
         var user = localStorage.getItem('currentUser');
         if (user) {

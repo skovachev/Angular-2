@@ -9,6 +9,8 @@
 	<user-list *ngIf="route === 'users'" [users]='users' (userChanged)='onUserChanged($event)'></user-list>
 
 	<word-list *ngIf="route === 'words'" [words]='words' [currentUser]='currentUser' (wordChanged)='onWordChanged($event)' (wordRemoved)='onWordRemoved($event)'></word-list>
+
+	<button (click)='logout()'>Logout</button>
 </div>
 
 <div *ngIf='!currentUser'>

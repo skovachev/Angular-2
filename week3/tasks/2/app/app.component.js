@@ -44,6 +44,10 @@ var App = (function () {
         this.users.push(user);
         this.usersService.storeUsers(this.users);
     };
+    App.prototype.logout = function () {
+        this.usersService.logoutUser();
+        this.currentUser = null;
+    };
     App = __decorate([
         core_1.Component({
             moduleId: module.id,

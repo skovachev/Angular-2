@@ -8,6 +8,10 @@ export class UsersService {
 		localStorage.setItem('currentUser', JSON.stringify(user.toJson()));
 	}
 
+	logoutUser() {
+		localStorage.removeItem('currentUser');
+	}
+
 	getLoggedInUser() {
 		var user = localStorage.getItem('currentUser');
 		if (user) {

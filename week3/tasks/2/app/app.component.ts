@@ -57,4 +57,9 @@ export class App {
 		this.users.push(user);
 		this.usersService.storeUsers(this.users);
 	}
+
+	logout() {
+		this.usersService.logoutUser();
+		this.currentUser = null;
+	}
 }

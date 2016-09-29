@@ -1,0 +1,11 @@
+input[type='text'], input[type='email'], input[type='password'] {
+	padding: 5px 10px;
+}
+
+.ng-valid {
+	background: rgba(0,255,0,0.3);
+}
+
+.ng-invalid {
+	background: rgba(255,0,0,0.3);
+}

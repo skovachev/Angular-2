@@ -2,8 +2,11 @@
 	<h2>Register</h2>
 	<div>
 		<label>Email
-			<input type="email" name='email' ngModel #email='ngModel' required>
+			<input type="email" name='email' notRegistered="email" ngModel #email='ngModel' required>
 			<div [hidden]='validator.validEmail(email.value) || email.untouched'>Please enter a valid email</div>
+			<div [hidden]='!email.errors'>
+				<div *ngIf='email.errors && email.errors.notRegistered'>User has already registered</div>
+			</div>
 		</label>
 	</div>
 	<div>

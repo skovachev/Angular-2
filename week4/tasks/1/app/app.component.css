@@ -1,0 +1,25 @@
+.word {
+	text-transform: uppercase;
+}
+
+.small-word {
+	// font-size: 0.8em;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+div {
+	padding: 10px;
+	// font-size: 2em;
+}
+
+.label {
+	font-weight: bold;
+	display: inline-block;
+	color: grey;
+	margin-right: 10px;
+}
+
+div.block {
+	padding: 0;
+}

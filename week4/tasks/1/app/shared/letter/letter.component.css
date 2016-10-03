@@ -1,0 +1,24 @@
+a { 
+	display:inline-block; 
+	margin-right: 10px;
+	text-decoration: none;
+	text-transform: uppercase;
+	padding: 3px 7px;
+	background: #eee;
+}
+
+a.correct {
+	color: green;
+	font-weight: bold;
+	background: white;
+}
+
+a.incorrect {
+	color: red;
+	text-decoration: line-through;
+	background: white;
+}
+
+a.hidden {
+	content: '_';
+}

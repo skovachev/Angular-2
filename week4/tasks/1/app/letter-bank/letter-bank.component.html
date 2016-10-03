@@ -1,0 +1,6 @@
+<div>
+	<span class="label">Word Bank:</span>
+	<span *ngFor="let letter of displayedLetters">
+		<letter [letter]='letter' (letterClicked)='guessWithLetter($event)'></letter>
+	</span>
+</div>

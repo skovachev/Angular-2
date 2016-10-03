@@ -1,8 +1,15 @@
 <form #theForm='ngForm'>
 	<h2>Register</h2>
 	<div>
+		<label>Github
+			<input type="text" name='github' ngModel #githubName>
+		</label>
+		<br>
+		<a class='username' (click)='githubLogin(username)' href='javascript:void(0)' *ngFor='let username of githubUsernames'>{{ username }}</a>
+	</div>
+	<div>
 		<label>Email
-			<input type="email" name='email' notRegisteredAsync="email" ngModel #email='ngModel' required>
+			<input type="email" name='email' notRegisteredAsync="email" [(ngModel)]='userEmail' #email='ngModel'  required>
 			<div [hidden]='validator.validEmail(email.value) || email.untouched'>Please enter a valid email</div>
 			<div [hidden]='!email.errors'>
 				<div *ngIf='email.errors && email.errors.notRegisteredAsync'>User has already registered</div>

@@ -1,0 +1,18 @@
+<div *ngIf="currentUser">
+	<div>
+		You are logged in as {{ currentUser.email }}
+	</div>
+
+	<button [hidden]='route=="users"' (click)='route="users"'>Users</button>
+	<button [hidden]='route=="words"' (click)='route="words"'>Words</button>
+
+	<user-list *ngIf="route === 'users'" [users]='users' (userChanged)='onUserChanged($event)'></user-list>
+
+	<word-list *ngIf="route === 'words'" [words]='words' [currentUser]='currentUser' (wordChanged)='onWordChanged($event)' (wordRemoved)='onWordRemoved($event)'></word-list>
+
+	<button (click)='logout()'>Logout</button>
+</div>
+
+<div *ngIf='!currentUser'>
+	<register *ngIf="route === 'register'" (userRegistered)='onUserRegistered($event)'></register>
+</div>

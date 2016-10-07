@@ -1,0 +1,10 @@
+span.word {
+	display: inline;
+	margin-right: 10px;
+	font-size: 2em;
+}
+
+:host >>> .highlighted {
+  	background: yellow;
+  	font-weight: bold;
+}

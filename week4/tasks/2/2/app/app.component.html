@@ -1,0 +1,3 @@
+<input type="text" #theInput [(ngModel)]='filter'>
+<br>
+<span class="word" *ngFor='let word of words' [innerHTML]="word | highlight:filter:'highlighted'"></span>

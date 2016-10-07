@@ -17,7 +17,7 @@ The course is going to be 4 weeks long and contains 8 lectures.
 5. Dependency Injection Overview (Providers), Services. Multi Providers and Template driven custom validators. Custom Form Controls.
 6. Observables (RxJS), HTTP.
 7. Routing and Pipes
-8. Angular CLI, Testing and Webpack introduction.
+8. Workshop.
 
 You can apply at HackBulgaria's website:https://hackbulgaria.com/courses/
 
@@ -27,6 +27,7 @@ You can apply at HackBulgaria's website:https://hackbulgaria.com/courses/
 [Lecture 3](https://speakerdeck.com/iliaidakiev/angular-2-at-hackbulgaria-week2-dot-1)<br>
 [Lecture 4](https://speakerdeck.com/iliaidakiev/angular-2-4) <br>
 [Lecture 5](https://speakerdeck.com/iliaidakiev/angular-2-at-hackbulgaria-week3-dot-2)<br>
+[Lecture 6](https://speakerdeck.com/iliaidakiev/angular-2-at-hackbulgaria-week4-dot-1)<br>
 
 ##Stuff to read:
 [5 rookie mistakes to avoid with angular](http://angularjs.blogspot.bg/2016/04/5-rookie-mistakes-to-avoid-with-angular.html)

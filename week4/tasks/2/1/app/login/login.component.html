@@ -1,0 +1,6 @@
+<input type="email" #email>
+<br>
+<input type="password" #password>
+<br>
+<button (click)='login({email:email.value, password: password.value})'>Login</button>
+<div class="error" *ngIf='wrongCredentials'>Wrong email or password</div>
